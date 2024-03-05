@@ -19,3 +19,10 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Cook(AbstractUser):
+    years_of_experience = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
