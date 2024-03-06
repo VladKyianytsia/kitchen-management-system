@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <ul>
-    {% for dish_type in dish_type_list %}
-      <li>
-        <a href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a>
-        <a class="btn btn-danger rounded p-2" style="text-decoration: none;" href="{% url "kitchen:dish-type-delete" pk=dish_type.id%}">&#10006;</a>
-        <a class="btn btn-info rounded" style="text-decoration: none" href="{% url "kitchen:dish-type-update" pk=dish_type.id %}">Update</a>
-      </li>
-      
-    {% endfor %}
-  </ul>
+  <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded form-layout">
+    <h3 style="text-align: center">Categories</h3>
+    <table class="table">
+      {% for dish_type in dish_type_list %}
+        <tr>
+          <td><a style="text-decoration: none" href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a></td>
+          <td><a style="text-decoration: none; color: lightblue" href="{% url "kitchen:dish-type-update" pk=dish_type.id %}">Update</a></td>
+          <td><a style="text-decoration: none;" href="{% url "kitchen:dish-type-delete" pk=dish_type.id%}">&#10006;</a></td>
+        </tr>
+
+      {% endfor %}
+    </table>
+  </div>
   <a class="btn btn-primary" href="{% url "kitchen:dish-type-create" %}">Add new category</a>
 {% endblock %}
