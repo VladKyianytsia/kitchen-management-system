@@ -16,4 +16,5 @@
   {% else %}
     <a class="btn btn-success" href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}">Assign me to this dish</a>
   {% endif %}
+  <a class="btn btn-info" href="{% url "kitchen:dish-update" pk=dish.id %}">Update</a>
 {% endblock %}

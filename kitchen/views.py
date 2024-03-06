@@ -118,3 +118,11 @@ def dish_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
     dish_type_id = dish.dish_type.id
     dish.delete()
     return HttpResponseRedirect(reverse_lazy("kitchen:dish-types-detail", kwargs={"pk": dish_type_id}))
+
+
+class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Dish
+    form_class = DishForm
+
+    def get_success_url(self):
+        return reverse_lazy("kitchen:dish-detail", kwargs={"pk": self.object.pk})
