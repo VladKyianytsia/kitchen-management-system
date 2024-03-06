@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ dish_type }}</h1>
+  <h1 style="text-align: center">
+    {{ dish_type }}
+    <a style="float: right; padding-right: 20px" href="{% url "kitchen:dish-create" pk=dish_type.id %}">
+      <i class='bx bx-add-to-queue' ></i>
+    </a>
+  </h1>
+  <br>
   {% if dish_type.dishes.all %}
-    <ul>
-    {% for dish in dish_type.dishes.all %}
-      <li>
-        <a style="text-decoration: none" href="{% url "kitchen:dish-detail" pk=dish.id %}">{{ dish }}</a>
-        <a style="text-decoration: none" href="{% url "kitchen:dish-delete" pk=dish.id %}">&#10006;</a>
-      </li>
-    {% endfor %}
-  </ul>
+    <div>
+      <div class="row justify-content-md-center">
+        {% for dish in dish_type.dishes.all %}
+          <div class="col-md-auto">
+            <div class="card" style="width: 18rem; margin-bottom: 10px">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ dish.name }}
+                  <a style="text-decoration: none; float: right" href="{% url "kitchen:dish-delete" pk=dish.id %}">&#10006;</a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ dish.price }} usd</h6>
+                <a href="{% url "kitchen:dish-detail" pk=dish.id %}" class="card-link">More details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   {% else %}
-    <h1>No dishes yet!</h1>
+    <h3 class="text-center">There are no dishes yet!</h3>
   {% endif %}
-  <a class="btn btn-info" href="{% url "kitchen:dish-create" pk=dish_type.id %}">Create new dish</a>
   
 {%  endblock %}

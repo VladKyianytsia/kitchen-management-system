@@ -1,15 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <ul>
   
-    <li>Username: {{ cook.username }}</li>
-    <li>First name: {{ cook.first_name }}</li>
-    <li>Last name: {{ cook.last_name }}</li>
-    <li>Years of experience: {{ cook.years_of_experience }}</li>
-    
-  </ul>
-  {% if cook.id == user.id %}
-    <a class="btn btn-info" href="{% url "kitchen:cook-update" pk=user.id %}">Update my years of experience</a>
-  {% endif%}
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 mt-5 pt-5">
+        <div class="row z-depth-3">
+          <div class="col-sm-4 bg-warning rounded-left">
+            <div class="card-block text-center text-white">
+              <i style="font-size: 60px" class='fas bx bxs-user fa-7x mt-5' ></i>
+              <h4 class="font-weight-bold mt-4 mb-3">{{ cook.first_name }} {{ cook.last_name }}</h4>
+              {% if cook.id == user.id %}
+                <a href="{% url "kitchen:cook-update" pk=user.id %}">
+                  <i style="font-size: 30px" class='bx bx-edit' ></i>
+                </a>
+              {% endif%}
+              <br>
+            </div>
+          </div>
+          <div class="col-sm-8 bg-light rounded-right">
+            <h3 class="mt-3 text-center">Information</h3>
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="font-weight-bold">Username:</p>
+                <h6 class="text-muted">{{ cook.username }}</h6>
+              </div>
+              <div class="col-sm-6">
+                <p class="font-weight-bold">Years of experience:</p>
+                <h6 class="text-muted">{{ cook.years_of_experience }}</h6>
+              </div>
+              <div class="col-sm-6">
+                <br>
+                <br>
+                <p class="font-weight-bold">Responsible for such dishes:</p>
+                {% for dish in cook.dishes.all %}
+                <h6 class="text-muted">{{ dish }}</h6>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}

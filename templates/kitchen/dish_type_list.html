@@ -1,8 +1,22 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
+  <div class="d-flex justify-content-center">
+    <form class="form-inline" action="" method="get">
+      <div class="input-group">
+        {{ search_form|crispy }}
+        <button class="btn" type="submit">
+          <i style="font-size: 24px" class='bx bx-search-alt-2' ></i>
+        </button>
+      </div>
+    </form>
+  </div>
   <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded form-layout">
-    <h3 style="text-align: center">Categories</h3>
+    <h3 style="text-align: center">
+      Categories
+    </h3>
+    <a style="float: right;font-size: 24px" href="{% url "kitchen:dish-type-create" %}"><i class='bx bx-plus' ></i></a>
     <table class="table">
       {% for dish_type in dish_type_list %}
         <tr>
@@ -13,6 +27,7 @@
 
       {% endfor %}
     </table>
+    
   </div>
-  <a class="btn btn-primary" href="{% url "kitchen:dish-type-create" %}">Add new category</a>
+  
 {% endblock %}

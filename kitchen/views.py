@@ -10,7 +10,7 @@ from kitchen.forms import (
     RegistrationForm,
     DishTypeForm,
     DishForm,
-    CookYearsOfExperienceUpdateForm
+    CookYearsOfExperienceUpdateForm, DishTypeNameSearchForm
 )
 from kitchen.models import DishType, Dish, Cook
 
@@ -57,6 +57,20 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
     context_object_name = "dish_type_list"
     template_name = "kitchen/dish_type_list.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DishTypeListView, self).get_context_data(**kwargs)
+
+        context["search_form"] = DishTypeNameSearchForm()
+        return context
+
+    def get_queryset(self):
+        name = self.request.GET.get("name")
+        queryset = super().get_queryset()
+        if name:
+            return queryset.filter(name__icontains=name)
+
+        return queryset
 
 
 class DishTypeDetailView(LoginRequiredMixin, generic.DetailView):
