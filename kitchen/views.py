@@ -1,9 +1,14 @@
 from django.contrib.auth import get_user_model, login
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 
 from kitchen.forms import RegistrationForm
+
+
+def index(request: HttpRequest) -> HttpResponse:
+    if request.method == "GET":
+        return render(request, "kitchen/index.html")
 
 
 def register(request: HttpRequest) -> HttpResponse:
@@ -22,7 +27,7 @@ def register(request: HttpRequest) -> HttpResponse:
             user = form.save()
             user.save()
             login(request, user)
-            return HttpResponse("<h1>Welcome to Kitchen</h1>")
+            return redirect("kitchen:index")
         else:
             return render(
                 request,

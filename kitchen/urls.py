@@ -1,9 +1,10 @@
 from django.urls import path
 
-from kitchen.views import register
+from kitchen.views import register, index
 
 app_name = "kitchen"
 
 urlpatterns = [
-    path("register/", register, name="register")
+    path("", index, name="index"),
+    path("register/", register, name="register"),
 ]
