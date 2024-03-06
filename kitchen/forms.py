@@ -18,11 +18,6 @@ class RegistrationForm(UserCreationForm):
 
 class DishTypeForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput())
-    dishes = forms.ModelMultipleChoiceField(
-        queryset=Dish.objects.all(),
-        widget=CheckboxSelectMultiple(),
-        required=False,
-    )
 
     class Meta:
         model = DishType
