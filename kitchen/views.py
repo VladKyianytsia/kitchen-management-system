@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, logout
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import generic
@@ -11,7 +11,7 @@ def index(request: HttpRequest) -> HttpResponse:
         return render(request, "kitchen/index.html")
 
 
-def register(request: HttpRequest) -> HttpResponse:
+def register_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         form = RegistrationForm()
         return render(
@@ -36,3 +36,8 @@ def register(request: HttpRequest) -> HttpResponse:
                     "form": form
                 }
             )
+
+
+def logout_view(request: HttpRequest) -> HttpResponse:
+    logout(request)
+    return redirect("login")
