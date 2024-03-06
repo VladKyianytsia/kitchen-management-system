@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+  {% load static %}
+</head>
+<body>
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Kitchen service</span>
+    </div>
+  </nav>
+
+  <br>
+
+  <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded form-layout">
+    <h4>Login</h4>
+    <hr>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+  </div>
+</body>
+</html>
