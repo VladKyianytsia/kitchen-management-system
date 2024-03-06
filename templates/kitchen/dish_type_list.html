@@ -6,6 +6,7 @@
       <li>
         <a href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a>
         <a class="btn btn-danger rounded p-2" style="text-decoration: none;" href="{% url "kitchen:dish-type-delete" pk=dish_type.id%}">&#10006;</a>
+        <a class="btn btn-info rounded" style="text-decoration: none" href="{% url "kitchen:dish-type-update" pk=dish_type.id %}">Update</a>
       </li>
       
     {% endfor %}

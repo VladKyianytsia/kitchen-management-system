@@ -67,6 +67,13 @@ class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("kitchen:dish-types-list")
 
 
+class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = DishType
+    form_class = DishTypeForm
+    template_name = "kitchen/dish_type_form.html"
+    success_url = reverse_lazy("kitchen:dish-types-list")
+
+
 def dish_type_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
     dish_type = DishType.objects.get(pk=pk)
     dish_type.delete()
