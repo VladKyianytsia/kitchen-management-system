@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul>
+    {% for dish_type in dish_type_list %}
+      <li>{{ dish_type }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
