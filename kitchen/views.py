@@ -7,7 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from kitchen.forms import RegistrationForm, DishTypeForm, DishForm
-from kitchen.models import DishType, Dish
+from kitchen.models import DishType, Dish, Cook
 
 
 @login_required
@@ -126,3 +126,7 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("kitchen:dish-detail", kwargs={"pk": self.object.pk})
+
+
+class CookListView(LoginRequiredMixin, generic.ListView):
+    model = get_user_model()
