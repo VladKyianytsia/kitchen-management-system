@@ -17,7 +17,7 @@
         </li>
       </ul>
       <span style="margin-right: 20px" class="navbar-text">
-        <a style="text-decoration: none" href="#">{{ user.username }}</a>
+        <a style="text-decoration: none" href="{% url "kitchen:cook-detail" pk=user.id %}">{{ user.username }}</a>
       </span>
       <span style="font-size: 30px" class="navbar-text">
         <a href="{% url "kitchen:logout" %}"><i class='bx bx-log-out'></i></a>

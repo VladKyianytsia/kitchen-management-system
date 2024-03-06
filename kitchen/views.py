@@ -130,3 +130,8 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class CookListView(LoginRequiredMixin, generic.ListView):
     model = get_user_model()
+
+
+class CookDetailView(LoginRequiredMixin, generic.DetailView):
+    model = get_user_model()
+

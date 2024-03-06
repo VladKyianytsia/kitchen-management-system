@@ -3,10 +3,12 @@
 {% block content %}
   <ul>
     {% for cook in cook_list %}
-      <li>{{ cook.username }}</li>
-      <li>{{ cook.first_name }}</li>
-      <li>{{ cook.last_name }}</li>
-      <li>{{ cook.years_of_experience }}</li>
+      <li>
+        <a href="{% url "kitchen:cook-detail" pk=cook.id %}">
+          <h1>{{ cook.first_name }} {{ cook.last_name }}</h1>
+        </a>
+      </li>
+      
       <br>
     {% endfor %}
   </ul>
