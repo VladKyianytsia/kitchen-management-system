@@ -6,7 +6,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from kitchen.forms import RegistrationForm, DishTypeForm, DishForm
+from kitchen.forms import (
+    RegistrationForm,
+    DishTypeForm,
+    DishForm,
+    CookYearsOfExperienceUpdateForm
+)
 from kitchen.models import DishType, Dish, Cook
 
 
@@ -135,3 +140,13 @@ class CookListView(LoginRequiredMixin, generic.ListView):
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
     model = get_user_model()
 
+
+class CookYearsOfExperienceUpdateView(
+    LoginRequiredMixin,
+    generic.UpdateView
+):
+    model = get_user_model()
+    form_class = CookYearsOfExperienceUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy("kitchen:cook-detail", kwargs={"pk": self.object.pk})

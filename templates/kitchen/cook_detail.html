@@ -9,4 +9,7 @@
     <li>Years of experience: {{ cook.years_of_experience }}</li>
     
   </ul>
+  {% if cook.id == user.id %}
+    <a class="btn btn-info" href="{% url "kitchen:cook-update" pk=user.id %}">Update my years of experience</a>
+  {% endif%}
 {% endblock %}

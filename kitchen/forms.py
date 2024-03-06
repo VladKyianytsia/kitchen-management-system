@@ -38,3 +38,9 @@ class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ("name", "description", "price", "dish_type",)
+
+
+class CookYearsOfExperienceUpdateForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("years_of_experience",)
