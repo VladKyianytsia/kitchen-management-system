@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -83,3 +83,14 @@ def dish_type_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
 
+
+@login_required
+def toggle_assign_to_dish(request: HttpRequest, pk: int) -> HttpResponse:
+    dish = Dish.objects.get(pk=pk)
+    if (
+        request.user in dish.cooks.all()
+    ):
+        dish.cooks.remove(request.user)
+    else:
+        dish.cooks.add(request.user)
+    return HttpResponseRedirect(reverse_lazy("kitchen:dish-detail", kwargs={"pk": pk}))
