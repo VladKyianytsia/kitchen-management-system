@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% include "includes/navbar.html" %}
   <ul>
     {% for dish_type in dish_type_list %}
-      <li>{{ dish_type }}</li>
+      <li><a href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}
