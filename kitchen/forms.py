@@ -27,3 +27,19 @@ class DishTypeForm(forms.ModelForm):
     class Meta:
         model = DishType
         fields = "__all__"
+
+
+class DishForm(forms.ModelForm):
+    dish_type = forms.ModelChoiceField(
+        disabled=True,
+        queryset=DishType.objects.all(),
+    )
+    cooks = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=CheckboxSelectMultiple(),
+        required=True,
+    )
+
+    class Meta:
+        model = Dish
+        fields = "__all__"

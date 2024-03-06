@@ -12,5 +12,6 @@
   {% else %}
     <h1>No dishes yet!</h1>
   {% endif %}
+  <a class="btn btn-info" href="{% url "kitchen:dish-create" pk=dish_type.id %}">Create new dish</a>
   
 {%  endblock %}

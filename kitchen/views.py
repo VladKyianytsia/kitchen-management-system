@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from kitchen.forms import RegistrationForm, DishTypeForm
+from kitchen.forms import RegistrationForm, DishTypeForm, DishForm
 from kitchen.models import DishType, Dish
 
 
@@ -94,3 +94,21 @@ def toggle_assign_to_dish(request: HttpRequest, pk: int) -> HttpResponse:
     else:
         dish.cooks.add(request.user)
     return HttpResponseRedirect(reverse_lazy("kitchen:dish-detail", kwargs={"pk": pk}))
+
+
+def dish_create_view(request: HttpRequest, pk: int) -> HttpResponse:
+    dish_type = DishType.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = DishForm(request.POST, initial={"dish_type": dish_type})
+
+        if form.is_valid():
+            dish = form.save(commit=False)
+            dish.dish_type = dish_type
+            dish.save()
+            return HttpResponseRedirect(reverse_lazy("kitchen:dish-types-detail", kwargs={"pk": dish_type.id}))
+
+    else:
+        form = DishForm(initial={"dish_type": dish_type})
+    return render(request, "kitchen/dish_form.html", {"form": form})
+
