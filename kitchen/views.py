@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from kitchen.forms import RegistrationForm, DishTypeForm, DishForm
@@ -112,3 +112,9 @@ def dish_create_view(request: HttpRequest, pk: int) -> HttpResponse:
         form = DishForm(initial={"dish_type": dish_type})
     return render(request, "kitchen/dish_form.html", {"form": form})
 
+
+def dish_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
+    dish = Dish.objects.get(pk=pk)
+    dish_type_id = dish.dish_type.id
+    dish.delete()
+    return HttpResponseRedirect(reverse_lazy("kitchen:dish-types-detail", kwargs={"pk": dish_type_id}))

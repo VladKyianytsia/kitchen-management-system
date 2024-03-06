@@ -34,12 +34,7 @@ class DishForm(forms.ModelForm):
         disabled=True,
         queryset=DishType.objects.all(),
     )
-    cooks = forms.ModelMultipleChoiceField(
-        queryset=get_user_model().objects.all(),
-        widget=CheckboxSelectMultiple(),
-        required=True,
-    )
 
     class Meta:
         model = Dish
-        fields = "__all__"
+        fields = ("name", "description", "price", "dish_type",)

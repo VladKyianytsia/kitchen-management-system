@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <h1>{{ dish_type }}</h1>
   {% if dish_type.dishes.all %}
     <ul>
     {% for dish in dish_type.dishes.all %}
       <li>
         <a style="text-decoration: none" href="{% url "kitchen:dish-detail" pk=dish.id %}">{{ dish }}</a>
+        <a style="text-decoration: none" href="{% url "kitchen:dish-delete" pk=dish.id %}">&#10006;</a>
       </li>
     {% endfor %}
   </ul>
