@@ -27,9 +27,3 @@ class DishTypeForm(forms.ModelForm):
     class Meta:
         model = DishType
         fields = "__all__"
-
-    def clean_name(self):
-        name = self.cleaned_data.get("name")
-        if DishType.objects.filter(name=name).exists():
-            raise forms.ValidationError("This category is already exists")
-        return name
