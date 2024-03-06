@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from kitchen.forms import RegistrationForm, DishTypeForm
-from kitchen.models import DishType
+from kitchen.models import DishType, Dish
 
 
 @login_required
@@ -78,3 +78,8 @@ def dish_type_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
     dish_type = DishType.objects.get(pk=pk)
     dish_type.delete()
     return redirect("kitchen:dish-types-list")
+
+
+class DishDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Dish
+
