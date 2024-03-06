@@ -3,7 +3,11 @@
 {% block content %}
   <ul>
     {% for dish_type in dish_type_list %}
-      <li><a href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a></li>
+      <li>
+        <a href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a>
+        <a class="btn btn-danger rounded p-2" style="text-decoration: none;" href="{% url "kitchen:dish-type-delete" pk=dish_type.id%}">&#10006;</a>
+      </li>
+      
     {% endfor %}
   </ul>
   <a class="btn btn-primary" href="{% url "kitchen:dish-type-create" %}">Add new category</a>
