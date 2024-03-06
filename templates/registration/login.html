@@ -6,7 +6,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
-  {% load static %}
 </head>
 <body>
   <nav class="navbar bg-body-tertiary">
@@ -20,12 +19,14 @@
   <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded form-layout">
     <h4>Login</h4>
     <hr>
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'login' %}" novalidate>
       {% csrf_token %}
       {{ form|crispy }}
       <br>
-      <input class="btn btn-primary login-button" type="submit" value="Login">
-      
+      <input class="btn btn-primary" type="submit" value="Login">
+      <hr>
+      <p>Don't have an account yet?</p>
+      <a style="display:block;margin: 0 auto" class="btn btn-secondary" href="{% url "kitchen:register" %}">Registrate</a>
     </form>
   </div>
 </body>
