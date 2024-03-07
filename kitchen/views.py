@@ -10,9 +10,11 @@ from kitchen.forms import (
     RegistrationForm,
     DishTypeForm,
     DishForm,
-    CookYearsOfExperienceUpdateForm, DishTypeNameSearchForm
+    CookYearsOfExperienceUpdateForm,
+    DishTypeNameSearchForm,
+    CookLastNameSearchForm
 )
-from kitchen.models import DishType, Dish, Cook
+from kitchen.models import DishType, Dish
 
 
 @login_required
@@ -147,8 +149,26 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy("kitchen:dish-detail", kwargs={"pk": self.object.pk})
 
 
+class CookLastNameSearch:
+    pass
+
+
 class CookListView(LoginRequiredMixin, generic.ListView):
     model = get_user_model()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CookListView, self).get_context_data(**kwargs)
+
+        context["search_form"] = CookLastNameSearchForm()
+        return context
+
+    def get_queryset(self):
+        last_name = self.request.GET.get("last_name")
+        queryset = super().get_queryset()
+        if last_name:
+            return queryset.filter(last_name__icontains=last_name)
+
+        return queryset
 
 
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
