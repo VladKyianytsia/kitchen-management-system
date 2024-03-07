@@ -42,12 +42,16 @@ class DishForm(forms.ModelForm):
         fields = ("name", "description", "price", "dish_type",)
 
 
-class CookYearsOfExperienceUpdateForm(forms.ModelForm):
+class CookUpdateForm(forms.ModelForm):
     years_of_experience = forms.IntegerField(required=True)
 
     class Meta:
         model = get_user_model()
-        fields = ("years_of_experience",)
+        fields = (
+            "years_of_experience",
+            "first_name",
+            "last_name"
+        )
 
     def clean_years_of_experience(self):
         return years_of_experience_validator(

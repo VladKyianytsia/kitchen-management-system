@@ -10,7 +10,7 @@ from kitchen.forms import (
     RegistrationForm,
     DishTypeForm,
     DishForm,
-    CookYearsOfExperienceUpdateForm,
+    CookUpdateForm,
     DishTypeNameSearchForm,
     CookLastNameSearchForm
 )
@@ -212,12 +212,9 @@ class CookDetailView(LoginRequiredMixin, generic.DetailView):
     model = get_user_model()
 
 
-class CookYearsOfExperienceUpdateView(
-    LoginRequiredMixin,
-    generic.UpdateView
-):
+class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = get_user_model()
-    form_class = CookYearsOfExperienceUpdateForm
+    form_class = CookUpdateForm
 
     def get_success_url(self):
         return reverse_lazy(

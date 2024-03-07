@@ -29,10 +29,17 @@
         {% for cook in cook_list %}
           <tr>
             <th>
+              {% if cook.first_name and cook.last_name %}
                 {{ cook.first_name }} {{ cook.last_name }}
                 {% if cook.id == user.id %}
                    (Me)
                 {% endif %}
+              {% else %}
+                {{ cook.username }}
+                {% if cook.id == user.id %}
+                   (Me)
+                {% endif %}
+              {% endif %}
             </th>
             <th>
               <a href="{% url "kitchen:cook-detail" pk=cook.id %}">

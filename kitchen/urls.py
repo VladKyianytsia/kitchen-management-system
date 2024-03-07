@@ -16,7 +16,7 @@ from kitchen.views import (
     DishUpdateView,
     CookListView,
     CookDetailView,
-    CookYearsOfExperienceUpdateView,
+    CookUpdateView,
 )
 
 app_name = "kitchen"
@@ -91,7 +91,7 @@ urlpatterns = [
     ),
     path(
         "cook/<int:pk>/update",
-        CookYearsOfExperienceUpdateView.as_view(),
+        CookUpdateView.as_view(),
         name="cook-update"
     )
 ]

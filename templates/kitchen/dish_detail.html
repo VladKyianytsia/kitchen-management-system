@@ -17,7 +17,13 @@
           Cooks:
           <ul class="list-group list-group-flush">
             {% for cook in dish.cooks.all %}
-              <li class="list-group-item">{{ cook }}</li>
+              <li class="list-group-item">
+                {% if cook.first_name and cook.last_name %}
+                  {{ cook }}
+                {% else %}
+                  {{ cook.username }}
+                {% endif %}
+              </li>
             {% endfor %}
           {% else %}
             Nobody responsible for this dish yet
@@ -27,7 +33,7 @@
       </ul>
       <div class="card-body text-center">
         {% if dish in user.dishes.all %}
-          <a href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}" class="text-danger card-link">Delete me from this dish</a>
+          <a href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}" class="text-danger card-link">Remove me from this dish</a>
         {% else %}
           <a href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}" class="text-success card-link">Assign me to this dish</a>
         {% endif %}
