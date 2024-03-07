@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import CheckboxSelectMultiple
+from django.core.exceptions import ValidationError
 
 from kitchen.models import Dish, DishType
 
@@ -13,6 +13,11 @@ class RegistrationForm(UserCreationForm):
             "first_name",
             "last_name",
             "years_of_experience"
+        )
+
+    def clean_years_of_experience(self):
+        return years_of_experience_validator(
+            self.cleaned_data["years_of_experience"]
         )
 
 
@@ -40,6 +45,11 @@ class CookYearsOfExperienceUpdateForm(forms.ModelForm):
         model = get_user_model()
         fields = ("years_of_experience",)
 
+    def clean_years_of_experience(self):
+        return years_of_experience_validator(
+            self.cleaned_data["years_of_experience"]
+        )
+
 
 class DishTypeNameSearchForm(forms.Form):
     name = forms.CharField(
@@ -65,3 +75,11 @@ class CookLastNameSearchForm(forms.Form):
             }
         )
     )
+
+
+def years_of_experience_validator(
+        years_of_experience: int
+) -> ValidationError | int:
+    if years_of_experience < 0:
+        raise forms.ValidationError("Invalid data")
+    return years_of_experience
