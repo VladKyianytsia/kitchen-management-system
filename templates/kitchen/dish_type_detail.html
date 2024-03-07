@@ -19,7 +19,7 @@
                   {{ dish.name }}
                   <a style="text-decoration: none; float: right" href="{% url "kitchen:dish-delete" pk=dish.id %}">&#10006;</a>
                 </h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ dish.price }} usd</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{ dish.price }}$</h6>
                 <a href="{% url "kitchen:dish-detail" pk=dish.id %}" class="card-link">More details</a>
               </div>
             </div>

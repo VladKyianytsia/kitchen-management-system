@@ -5,16 +5,20 @@
     <div class="card" style="width: 40rem;">
       <div class="card-body text-center">
         <h5 class="card-title">{{ dish.name }}</h5>
-        <p class="card-text">{{ dish.description }}</p>
+        <p class="card-text">{{ dish.price }}$</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Price: {{ dish.price }} usd</li>
+        <li class="list-group-item">{{ dish.description }}</li>
         <li class="list-group-item">
+          {% if dish.cooks.all %}
           Cooks:
           <ul class="list-group list-group-flush">
             {% for cook in dish.cooks.all %}
               <li class="list-group-item">{{ cook }}</li>
             {% endfor %}
+          {% else %}
+            Nobody responsible for this dish yet
+          {% endif %}
           </ul>  
         </li>
       </ul>
