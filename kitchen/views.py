@@ -96,6 +96,7 @@ class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("kitchen:dish-types-list")
 
 
+@login_required
 def dish_type_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
     dish_type = DishType.objects.get(pk=pk)
     dish_type.delete()
@@ -104,6 +105,7 @@ def dish_type_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
+    queryset = Dish.objects.prefetch_related("cooks")
 
 
 @login_required
@@ -118,6 +120,7 @@ def toggle_assign_to_dish(request: HttpRequest, pk: int) -> HttpResponse:
     return HttpResponseRedirect(reverse_lazy("kitchen:dish-detail", kwargs={"pk": pk}))
 
 
+@login_required
 def dish_create_view(request: HttpRequest, pk: int) -> HttpResponse:
     dish_type = DishType.objects.get(pk=pk)
 
@@ -135,6 +138,7 @@ def dish_create_view(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, "kitchen/dish_form.html", {"form": form})
 
 
+@login_required
 def dish_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
     dish = Dish.objects.get(pk=pk)
     dish_type_id = dish.dish_type.id
