@@ -32,20 +32,4 @@
       </div>
     </div>
   </div>
-{#  <ul>#}
-{#    <li>Name: {{ dish.name }}</li>#}
-{#    <li>Description: {{ dish.description }}</li>#}
-{#    <li>Price: {{ dish.price }}</li>#}
-{#    <li>Category: {{ dish.dish_type }}</li>#}
-{#    <li>Responsible Cooks:</li>#}
-{#    {% for cook in dish.cooks.all %}#}
-{#      <li>{{ cook }}</li>#}
-{#    {% endfor %}#}
-{#  </ul>#}
-{#  {% if dish in user.dishes.all %}#}
-{#    <a class="btn btn-danger" href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}">Delete me from this dish</a>#}
-{#  {% else %}#}
-{#    <a class="btn btn-success" href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}">Assign me to this dish</a>#}
-{#  {% endif %}#}
-{#  <a class="btn btn-info" href="{% url "kitchen:dish-update" pk=dish.id %}">Update</a>#}
 {% endblock %}
