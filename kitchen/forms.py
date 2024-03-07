@@ -7,6 +7,8 @@ from kitchen.models import Dish, DishType
 
 
 class RegistrationForm(UserCreationForm):
+    years_of_experience = forms.IntegerField(required=True)
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = UserCreationForm.Meta.fields + (
@@ -41,6 +43,8 @@ class DishForm(forms.ModelForm):
 
 
 class CookYearsOfExperienceUpdateForm(forms.ModelForm):
+    years_of_experience = forms.IntegerField(required=True)
+
     class Meta:
         model = get_user_model()
         fields = ("years_of_experience",)
