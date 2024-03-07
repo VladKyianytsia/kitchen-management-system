@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <a href="{% url "kitchen:dish-types-detail" pk=dish.dish_type_id %}" style="float: left; margin-left: 20px; font-size: 36px"><i class='bx bx-arrow-back' ></i></a>
+  <br>
   <div class="d-flex justify-content-center">
+    
     <div class="shadow card" style="width: 40rem;">
       <div class="card-body text-center">
         <h5 class="card-title">{{ dish.name }}</h5>
