@@ -13,10 +13,11 @@
     </form>
   </div>
   <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded">
+    <a style="font-size: 24px" href="{% url "kitchen:dish-type-create" %}"><i class='bx bx-plus' ></i></a>
     <h3 style="text-align: center">
       Categories
     </h3>
-    <a style="float: right;font-size: 24px" href="{% url "kitchen:dish-type-create" %}"><i class='bx bx-plus' ></i></a>
+    
     <table class="table">
       {% for dish_type in dish_type_list %}
         <tr>
