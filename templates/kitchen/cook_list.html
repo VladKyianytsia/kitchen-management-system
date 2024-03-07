@@ -1,15 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <ul>
-    {% for cook in cook_list %}
-      <li>
-        <a href="{% url "kitchen:cook-detail" pk=cook.id %}">
-          <h1>{{ cook.first_name }} {{ cook.last_name }}</h1>
-        </a>
-      </li>
-      
-      <br>
-    {% endfor %}
-  </ul>
+  <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded form-layout">
+    <table class="table">
+      <thead>
+        <tr>
+          
+          <td>
+            <strong>Our Cooks:</strong>
+          </td>
+          <td>
+          </td>
+        </tr>
+        
+      </thead>
+      <tbody>
+        {% for cook in cook_list %}
+          <tr>
+            <th>
+                {{ cook.first_name }} {{ cook.last_name }}
+            </th>
+            <th>
+              <a href="{% url "kitchen:cook-detail" pk=cook.id %}">
+                <i style="font-size: 26px" class='bx bx-info-square'></i>
+              </a>    
+            </th>
+          </tr>
+          
+  {#        <li>#}
+  {#          <a href="{% url "kitchen:cook-detail" pk=cook.id %}">#}
+  {#            <h1>{{ cook.first_name }} {{ cook.last_name }}</h1>#}
+  {#          </a>#}
+  {#        </li>#}
+  {#        <br>#}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
