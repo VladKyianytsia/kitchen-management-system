@@ -30,6 +30,9 @@
           <tr>
             <th>
                 {{ cook.first_name }} {{ cook.last_name }}
+                {% if cook.id == user.id %}
+                   (Me)
+                {% endif %}
             </th>
             <th>
               <a href="{% url "kitchen:cook-detail" pk=cook.id %}">
