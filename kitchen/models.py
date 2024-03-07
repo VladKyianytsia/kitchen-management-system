@@ -6,6 +6,9 @@ from django.db import models
 class DishType(models.Model):
     name = models.CharField(max_length=65, unique=True)
 
+    class Meta:
+        ordering = ('name',)
+
     def __str__(self):
         return self.name
 
@@ -29,6 +32,7 @@ class Dish(models.Model):
 
     class Meta:
         verbose_name_plural = "Dishes"
+        ordering = ("name", )
 
     def __str__(self):
         return self.name
@@ -39,6 +43,9 @@ class Cook(AbstractUser):
         blank=True,
         null=True
     )
+
+    class Meta:
+        ordering = ('username',)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

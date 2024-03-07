@@ -3,12 +3,12 @@
 
 {% block content %}
   <div class="d-flex justify-content-center">
-    <form class="form-inline" action="" method="get">
+    <form style="margin-right: 50px"  class="form-inline" action="" method="get">
       <div class="input-group">
-        {{ search_form|crispy }}
         <button class="btn" type="submit">
           <i style="font-size: 24px" class='bx bx-search-alt-2' ></i>
         </button>
+        {{ search_form|crispy }}
       </div>
     </form>
   </div>
