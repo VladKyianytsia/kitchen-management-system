@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from kitchen.models import DishType, Dish, Cook
+from kitchen.models import DishType, Dish
 
 
 class DishTypeModelTest(TestCase):
@@ -37,4 +37,6 @@ class CookModelTest(TestCase):
             last_name="Test_l_n",
             years_of_experience=2
         )
-        self.assertEqual(str(cook), f"{cook.first_name} {cook.last_name}")
+        self.assertEqual(
+            str(cook), f"{cook.first_name} {cook.last_name}"
+        )

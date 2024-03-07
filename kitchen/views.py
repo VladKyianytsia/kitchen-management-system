@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic
 
 from kitchen.forms import (
@@ -62,7 +62,9 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(DishTypeListView, self).get_context_data(**kwargs)
+        context = super(
+            DishTypeListView, self
+        ).get_context_data(**kwargs)
 
         context["search_form"] = DishTypeNameSearchForm()
         return context
@@ -97,7 +99,10 @@ class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 
 @login_required
-def dish_type_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
+def dish_type_delete_view(
+        request: HttpRequest,
+        pk: int
+) -> HttpResponse:
     dish_type = DishType.objects.get(pk=pk)
     dish_type.delete()
     return redirect("kitchen:dish-types-list")
@@ -109,7 +114,10 @@ class DishDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 @login_required
-def toggle_assign_to_dish(request: HttpRequest, pk: int) -> HttpResponse:
+def toggle_assign_to_dish(
+        request: HttpRequest,
+        pk: int
+) -> HttpResponse:
     dish = Dish.objects.get(pk=pk)
     if (
         request.user in dish.cooks.all()
@@ -117,21 +125,37 @@ def toggle_assign_to_dish(request: HttpRequest, pk: int) -> HttpResponse:
         dish.cooks.remove(request.user)
     else:
         dish.cooks.add(request.user)
-    return HttpResponseRedirect(reverse_lazy("kitchen:dish-detail", kwargs={"pk": pk}))
+    return HttpResponseRedirect(
+        reverse_lazy(
+            "kitchen:dish-detail",
+            kwargs={"pk": pk}
+        )
+    )
 
 
 @login_required
-def dish_create_view(request: HttpRequest, pk: int) -> HttpResponse:
+def dish_create_view(
+        request: HttpRequest,
+        pk: int
+) -> HttpResponse:
     dish_type = DishType.objects.get(pk=pk)
 
     if request.method == "POST":
-        form = DishForm(request.POST, initial={"dish_type": dish_type})
+        form = DishForm(
+            request.POST,
+            initial={"dish_type": dish_type}
+        )
 
         if form.is_valid():
             dish = form.save(commit=False)
             dish.dish_type = dish_type
             dish.save()
-            return HttpResponseRedirect(reverse_lazy("kitchen:dish-types-detail", kwargs={"pk": dish_type.id}))
+            return HttpResponseRedirect(
+                reverse_lazy(
+                    "kitchen:dish-types-detail",
+                    kwargs={"pk": dish_type.id}
+                )
+            )
 
     else:
         form = DishForm(initial={"dish_type": dish_type})
@@ -139,11 +163,19 @@ def dish_create_view(request: HttpRequest, pk: int) -> HttpResponse:
 
 
 @login_required
-def dish_delete_view(request: HttpRequest, pk: int) -> HttpResponse:
+def dish_delete_view(
+        request: HttpRequest,
+        pk: int
+) -> HttpResponse:
     dish = Dish.objects.get(pk=pk)
     dish_type_id = dish.dish_type.id
     dish.delete()
-    return HttpResponseRedirect(reverse_lazy("kitchen:dish-types-detail", kwargs={"pk": dish_type_id}))
+    return HttpResponseRedirect(
+        reverse_lazy(
+            "kitchen:dish-types-detail",
+            kwargs={"pk": dish_type_id}
+        )
+    )
 
 
 class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -151,7 +183,10 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = DishForm
 
     def get_success_url(self):
-        return reverse_lazy("kitchen:dish-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "kitchen:dish-detail",
+            kwargs={"pk": self.object.pk}
+        )
 
 
 class CookListView(LoginRequiredMixin, generic.ListView):
@@ -185,4 +220,7 @@ class CookYearsOfExperienceUpdateView(
     form_class = CookYearsOfExperienceUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy("kitchen:cook-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "kitchen:cook-detail",
+            kwargs={"pk": self.object.pk}
+        )
