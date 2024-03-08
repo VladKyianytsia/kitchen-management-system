@@ -3,11 +3,7 @@
 {% block content %}
   <a href="{% url "kitchen:dish-types-list" %}" style="float: left; margin-left: 20px; font-size: 36px"><i class='bx bx-arrow-back' ></i></a>
   <h1 style="text-align: center;text-shadow: 2px 2px 2px lightgrey;">
-    
     {{ dish_type }}
-    <a style="float: right; padding-right: 20px" href="{% url "kitchen:dish-create" pk=dish_type.id %}">
-      <i class='bx bx-add-to-queue' ></i>
-    </a>
   </h1>
   <br>
   {% if dish_type.dishes.all %}
@@ -27,6 +23,9 @@
             </div>
           </div>
         {% endfor %}
+        <a class="row justify-content-md-center" style="text-align: center;margin-top: 20px;font-size: 36px;text-decoration: none" href="{% url "kitchen:dish-create" pk=dish_type.id %}">
+          <i class='bx bx-plus-medical'></i>
+        </a>  
       </div>
     </div>
   {% else %}
