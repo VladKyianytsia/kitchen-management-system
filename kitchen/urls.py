@@ -3,7 +3,6 @@ from django.urls import path
 from kitchen.views import (
     register_view,
     index,
-    logout_view,
     DishTypeListView,
     DishTypeDetailView,
     DishTypeCreateView,
@@ -28,7 +27,6 @@ urlpatterns = [
         register_view,
         name="register"
     ),
-    path("logout/", logout_view, name="logout"),
     path(
         "dish-types/",
         DishTypeListView.as_view(),

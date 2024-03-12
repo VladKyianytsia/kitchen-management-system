@@ -19,9 +19,10 @@
       <span style="margin-right: 20px" class="navbar-text">
         <a style="text-decoration: none" href="{% url "kitchen:cook-detail" pk=user.id %}">{{ user.username }}</a>
       </span>
-      <span style="font-size: 30px" class="navbar-text">
-        <a href="{% url "kitchen:logout" %}"><i class='bx bx-log-out'></i></a>
-      </span>
+      <form style="font-size: 30px" class="navbar-text" method="post" action="{% url "logout" %}">
+        {% csrf_token %}
+        <button style="border: none;background: none"><i class='bx bx-log-out'></i></button>
+      </form>
     </div>
   </div>
 </nav>

@@ -50,11 +50,6 @@ def register_view(request: HttpRequest) -> HttpResponse:
             )
 
 
-def logout_view(request: HttpRequest) -> HttpResponse:
-    logout(request)
-    return redirect("login")
-
-
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
     context_object_name = "dish_type_list"
