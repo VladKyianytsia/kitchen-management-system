@@ -33,21 +33,21 @@ def register_view(request: HttpRequest) -> HttpResponse:
                 "form": form
             }
         )
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.save()
-            login(request, user)
-            return redirect("kitchen:index")
-        else:
-            return render(
-                request,
-                "kitchen/cook_registration.html",
-                context={
-                    "form": form
-                }
-            )
+
+    form = RegistrationForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        user.save()
+        login(request, user)
+        return redirect("kitchen:index")
+
+    return render(
+        request,
+        "kitchen/cook_registration.html",
+        context={
+            "form": form
+        }
+    )
 
 
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
