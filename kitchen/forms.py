@@ -41,6 +41,9 @@ class DishForm(forms.ModelForm):
         model = Dish
         fields = ("name", "description", "price", "dish_type",)
 
+    def clean_price(self):
+        return price_validator(self.cleaned_data["price"])
+
 
 class CookUpdateForm(forms.ModelForm):
     years_of_experience = forms.IntegerField(required=True)
@@ -91,3 +94,9 @@ def years_of_experience_validator(
     if years_of_experience < 0:
         raise forms.ValidationError("Invalid data")
     return years_of_experience
+
+
+def price_validator(price: int) -> ValidationError | int:
+    if price <= 0:
+        raise forms.ValidationError("Invalid data")
+    return price
