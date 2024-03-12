@@ -30,5 +30,8 @@
     </div>
   {% else %}
     <h2 style="margin-top: 20rem" class="text-center">There are no dishes yet!</h2>
+    <a class="row justify-content-md-center" style="text-align: center;margin-top: 20px;font-size: 36px;text-decoration: none" href="{% url "kitchen:dish-create" pk=dish_type.id %}">
+      <i class='bx bx-plus-medical'></i>
+    </a> 
   {% endif %}
 {%  endblock %}
