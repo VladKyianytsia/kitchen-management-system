@@ -1,0 +1,24 @@
+{% load query_transform %}
+{% if is_paginated %}
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a href="?{% query_transform request page=page_obj.previous_page_number %}" class="page-link"><i style="font-size: 26px" class='bx bx-left-arrow-alt' ></i></a>
+      </li>
+    {% else %}
+      <li class="page-item">
+        <i style="font-size: 26px" class='bx bx-left-arrow-alt page-link bg-secondary disabled' ></i>
+      </li>
+    {% endif %}
+  
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a href="?{% query_transform request page=page_obj.next_page_number %}" class="page-link"><i style="font-size: 26px" class='bx bx-right-arrow-alt' ></i></a>
+      </li>
+    {% else %}
+      <li class="page-item ">
+        <i  style="font-size: 26px" class='bx bx-right-arrow-alt page-link bg-secondary disabled' ></i>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

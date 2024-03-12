@@ -1,0 +1,34 @@
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+<html lang="en" style="width: 100%; height: 100%">
+
+<head>
+  <title>Kitchen Service</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  {% load static %}
+</head>
+<body style="background-image: url('{% static "kitchen/1670329338_kartinkin-net-p-restoran-kartinki-dlya-prezentatsii-instag-2.jpg" %}')">
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Kitchen service</span>
+    </div>
+  </nav>
+  <br>
+  <div style="width: 500px;margin-top: 12rem" class="container bg-secondary-subtle shadow-lg p-5 rounded">
+    <h4 style="text-align: center">Login</h4>
+    <hr>
+    <form method="post" action="{% url 'login' %}" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <input class="btn btn-primary" type="submit" value="Login">
+      <hr>
+      <p>Don't have an account yet?</p>
+      <a style="display:block;margin: 0 auto" class="btn btn-secondary" href="{% url "kitchen:register" %}">Registrate</a>
+    </form>
+  </div>
+</body>
+</html>

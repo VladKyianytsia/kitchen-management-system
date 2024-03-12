@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <a href="{% url "kitchen:dish-types-list" %}" style="float: left; margin-left: 20px; font-size: 36px"><i class='bx bx-arrow-back' ></i></a>
+  <h1 style="text-align: center;text-shadow: 2px 2px 2px lightgrey;">
+    {{ dish_type }}
+  </h1>
+  <br>
+  {% if dish_type.dishes.all %}
+    <div>
+      <div class="row justify-content-md-center">
+        {% for dish in dish_type.dishes.all %}
+          <div class="col-md-auto">
+            <div class="shadow card" style="width: 20rem; margin-bottom: 10px">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ dish.name }}
+                  <a style="text-decoration: none; float: right" href="{% url "kitchen:dish-delete" pk=dish.id %}">&#10006;</a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ dish.price }}$</h6>
+                <a href="{% url "kitchen:dish-detail" pk=dish.id %}" class="card-link">More details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <a class="row justify-content-md-center" style="text-align: center;margin-top: 20px;font-size: 36px;text-decoration: none" href="{% url "kitchen:dish-create" pk=dish_type.id %}">
+          <i class='bx bx-plus-medical'></i>
+        </a>  
+      </div>
+    </div>
+  {% else %}
+    <h2 style="margin-top: 20rem" class="text-center">There are no dishes yet!</h2>
+    <a class="row justify-content-md-center" style="text-align: center;margin-top: 20px;font-size: 36px;text-decoration: none" href="{% url "kitchen:dish-create" pk=dish_type.id %}">
+      <i class='bx bx-plus-medical'></i>
+    </a> 
+  {% endif %}
+{%  endblock %}

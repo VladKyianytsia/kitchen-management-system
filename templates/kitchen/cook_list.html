@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <form style="margin-right: 50px" class="form-inline" action="" method="get">
+      <div class="input-group">
+        <button class="btn" type="submit">
+          <i style="font-size: 24px" class='bx bx-search-alt-2' ></i>
+        </button>
+        {{ search_form|crispy }}
+      </div>
+    </form>
+  </div>
+  <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>
+            <strong>Our Cooks:</strong>
+          </td>
+          <td>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cook in cook_list %}
+          <tr>
+            <th>
+              {% if cook.first_name and cook.last_name %}
+                {{ cook.first_name }} {{ cook.last_name }}
+                {% if cook.id == user.id %}
+                   (Me)
+                {% endif %}
+              {% else %}
+                {{ cook.username }}
+                {% if cook.id == user.id %}
+                   (Me)
+                {% endif %}
+              {% endif %}
+            </th>
+            <th>
+              <a href="{% url "kitchen:cook-detail" pk=cook.id %}">
+                <i style="font-size: 26px" class='bx bx-info-square'></i>
+              </a>    
+            </th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

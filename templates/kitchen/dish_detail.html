@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <a href="{% url "kitchen:dish-types-detail" pk=dish.dish_type_id %}" style="float: left; margin-left: 20px; font-size: 36px"><i class='bx bx-arrow-back' ></i></a>
+  <br>
+  <div class="d-flex justify-content-center">
+    <div class="shadow card" style="width: 40rem;">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ dish.name }}</h5>
+        <p class="card-text">{{ dish.price }}$</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ dish.description }}</li>
+        <li class="list-group-item">
+          {% if dish.cooks.all %}
+          Cooks:
+          <ul class="list-group list-group-flush">
+            {% for cook in dish.cooks.all %}
+              <li class="list-group-item">
+                {% if cook.first_name and cook.last_name %}
+                  {{ cook }}
+                {% else %}
+                  {{ cook.username }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          {% else %}
+            Nobody responsible for this dish yet
+          {% endif %}
+          </ul>  
+        </li>
+      </ul>
+      <div class="card-body text-center">
+        {% if dish in user.dishes.all %}
+          <a href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}" class="text-danger card-link">Remove me from this dish</a>
+        {% else %}
+          <a href="{% url "kitchen:toggle-dish-assign" pk=dish.id %}" class="text-success card-link">Assign me to this dish</a>
+        {% endif %}
+        <a href="{% url "kitchen:dish-update" pk=dish.id %}" class="text-info card-link">Update</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

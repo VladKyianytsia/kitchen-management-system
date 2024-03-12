@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <form style="margin-right: 50px"  class="form-inline" action="" method="get">
+      <div class="input-group">
+        <button class="btn" type="submit">
+          <i style="font-size: 24px" class='bx bx-search-alt-2' ></i>
+        </button>
+        {{ search_form|crispy }}
+      </div>
+    </form>
+  </div>
+  <div style="width: 500px" class="container bg-secondary-subtle shadow-lg p-5 rounded">
+    <a style="font-size: 24px" href="{% url "kitchen:dish-type-create" %}"><i class='bx bx-plus' ></i></a>
+    <h3 style="text-align: center">
+      Categories
+    </h3>
+    <table class="table">
+      {% for dish_type in dish_type_list %}
+        <tr>
+          <td><a style="text-decoration: none" href="{% url "kitchen:dish-types-detail" pk=dish_type.id %}">{{ dish_type }}</a></td>
+          <td><a style="text-decoration: none; color: lightblue" href="{% url "kitchen:dish-type-update" pk=dish_type.id %}">Update</a></td>
+          <td><a style="text-decoration: none;" href="{% url "kitchen:dish-type-delete" pk=dish_type.id%}">&#10006;</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}
