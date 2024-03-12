@@ -5,7 +5,7 @@ Django project for managing restaurant kitchen
 
 ## Check it out!
 
-[Kitchen management project deployed to Render]
+[Kitchen management project deployed to Render](https://kitchen-management-system.onrender.com/)
 
 If you don't want to register you can log in with this credentials:
 * Login: admin
