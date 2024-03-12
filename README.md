@@ -14,7 +14,7 @@ If you don't want to register you can log in with this credentials:
 ## Installation
 
 ```shell
-git clone https://github.com/VladKyianytsia/kitchen-management-system/tree/develop
+git clone https://github.com/VladKyianytsia/kitchen-management-system
 cd kitchen-management-system
 python3 -m venv venv
 source venv/bin/activate
