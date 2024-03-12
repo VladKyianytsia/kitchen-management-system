@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -93,14 +93,12 @@ class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("kitchen:dish-types-list")
 
 
-@login_required
-def dish_type_delete_view(
-        request: HttpRequest,
-        pk: int
-) -> HttpResponse:
-    dish_type = DishType.objects.get(pk=pk)
-    dish_type.delete()
-    return redirect("kitchen:dish-types-list")
+class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = DishType
+    success_url = reverse_lazy("kitchen:dish-types-list")
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
@@ -133,7 +131,7 @@ def dish_create_view(
         request: HttpRequest,
         pk: int
 ) -> HttpResponse:
-    dish_type = DishType.objects.get(pk=pk)
+    dish_type = get_object_or_404(DishType, pk=pk)
 
     if request.method == "POST":
         form = DishForm(
@@ -157,20 +155,17 @@ def dish_create_view(
     return render(request, "kitchen/dish_form.html", {"form": form})
 
 
-@login_required
-def dish_delete_view(
-        request: HttpRequest,
-        pk: int
-) -> HttpResponse:
-    dish = Dish.objects.get(pk=pk)
-    dish_type_id = dish.dish_type.id
-    dish.delete()
-    return HttpResponseRedirect(
-        reverse_lazy(
+class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Dish
+
+    def get_success_url(self):
+        return reverse_lazy(
             "kitchen:dish-types-detail",
-            kwargs={"pk": dish_type_id}
+            kwargs={"pk": self.object.dish_type.pk}
         )
-    )
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 
 class DishUpdateView(LoginRequiredMixin, generic.UpdateView):

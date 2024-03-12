@@ -6,12 +6,12 @@ from kitchen.views import (
     DishTypeListView,
     DishTypeDetailView,
     DishTypeCreateView,
-    dish_type_delete_view,
+    DishTypeDeleteView,
     DishTypeUpdateView,
     DishDetailView,
     toggle_assign_to_dish,
     dish_create_view,
-    dish_delete_view,
+    DishDeleteView,
     DishUpdateView,
     CookListView,
     CookDetailView,
@@ -49,7 +49,7 @@ urlpatterns = [
     ),
     path(
         "dish-types/<int:pk>/delete/",
-        dish_type_delete_view,
+        DishTypeDeleteView.as_view(),
         name="dish-type-delete"
     ),
     path(
@@ -69,7 +69,7 @@ urlpatterns = [
     ),
     path(
         "dishes/<int:pk>/delete/",
-        dish_delete_view,
+        DishDeleteView.as_view(),
         name="dish-delete"
     ),
     path(
