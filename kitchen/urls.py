@@ -55,12 +55,12 @@ urlpatterns = [
         name="dish-type-delete"
     ),
     path(
-        "dish/<int:pk>/",
+        "dishes/<int:pk>/",
         DishDetailView.as_view(),
         name="dish-detail"
     ),
     path(
-        "dish/<int:pk>/toggle-assign/",
+        "dishes/<int:pk>/toggle-assign/",
         toggle_assign_to_dish,
         name="toggle-dish-assign"
     ),
@@ -70,27 +70,27 @@ urlpatterns = [
         name="dish-create"
     ),
     path(
-        "dish/<int:pk>/delete/",
+        "dishes/<int:pk>/delete/",
         dish_delete_view,
         name="dish-delete"
     ),
     path(
-        "dish/<int:pk>/update/",
+        "dishes/<int:pk>/update/",
         DishUpdateView.as_view(),
         name="dish-update"
     ),
     path(
-        "cook/",
+        "cooks/",
         CookListView.as_view(),
         name="cook-list"
     ),
     path(
-        "cook/<int:pk>/",
+        "cooks/<int:pk>/",
         CookDetailView.as_view(),
         name="cook-detail"
     ),
     path(
-        "cook/<int:pk>/update",
+        "cooks/<int:pk>/update",
         CookUpdateView.as_view(),
         name="cook-update"
     )
