@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, login, logout
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -56,10 +56,8 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     template_name = "kitchen/dish_type_list.html"
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(
-            DishTypeListView, self
-        ).get_context_data(**kwargs)
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        context = super(DishTypeListView, self).get_context_data(**kwargs)
 
         context["search_form"] = DishTypeNameSearchForm()
         return context
@@ -112,12 +110,12 @@ def toggle_assign_to_dish(
         pk: int
 ) -> HttpResponse:
     dish = Dish.objects.get(pk=pk)
-    if (
-        request.user in dish.cooks.all()
-    ):
+    if request.user in dish.cooks.all():
         dish.cooks.remove(request.user)
+
     else:
         dish.cooks.add(request.user)
+
     return HttpResponseRedirect(
         reverse_lazy(
             "kitchen:dish-detail",
@@ -180,7 +178,7 @@ class CookListView(LoginRequiredMixin, generic.ListView):
     model = get_user_model()
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *args, object_list=None, **kwargs):
         context = super(CookListView, self).get_context_data(**kwargs)
 
         context["search_form"] = CookLastNameSearchForm()

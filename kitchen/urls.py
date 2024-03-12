@@ -18,6 +18,7 @@ from kitchen.views import (
     CookUpdateView,
 )
 
+
 app_name = "kitchen"
 
 urlpatterns = [

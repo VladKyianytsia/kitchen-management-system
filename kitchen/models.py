@@ -16,10 +16,7 @@ class DishType(models.Model):
 class Dish(models.Model):
     name = models.CharField(max_length=65)
     description = models.TextField()
-    price = models.DecimalField(
-        decimal_places=2,
-        max_digits=5
-    )
+    price = models.DecimalField(decimal_places=2, max_digits=5)
     dish_type = models.ForeignKey(
         DishType,
         on_delete=models.CASCADE,
@@ -39,10 +36,7 @@ class Dish(models.Model):
 
 
 class Cook(AbstractUser):
-    years_of_experience = models.IntegerField(
-        blank=True,
-        null=True
-    )
+    years_of_experience = models.IntegerField(blank=True, null=True)
 
     class Meta:
         ordering = ('username',)

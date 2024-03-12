@@ -17,7 +17,6 @@
     <h3 style="text-align: center">
       Categories
     </h3>
-
     <table class="table">
       {% for dish_type in dish_type_list %}
         <tr>
@@ -25,10 +24,8 @@
           <td><a style="text-decoration: none; color: lightblue" href="{% url "kitchen:dish-type-update" pk=dish_type.id %}">Update</a></td>
           <td><a style="text-decoration: none;" href="{% url "kitchen:dish-type-delete" pk=dish_type.id%}">&#10006;</a></td>
         </tr>
-
       {% endfor %}
     </table>
     {% include "includes/pagination.html" %}
   </div>
-
 {% endblock %}

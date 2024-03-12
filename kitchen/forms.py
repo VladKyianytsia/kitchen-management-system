@@ -93,10 +93,12 @@ def years_of_experience_validator(
 ) -> ValidationError | int:
     if years_of_experience < 0:
         raise forms.ValidationError("Invalid data")
+
     return years_of_experience
 
 
 def price_validator(price: int) -> ValidationError | int:
     if price <= 0:
         raise forms.ValidationError("Invalid data")
+
     return price
