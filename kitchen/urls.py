@@ -10,7 +10,7 @@ from kitchen.views import (
     DishTypeUpdateView,
     DishDetailView,
     toggle_assign_to_dish,
-    dish_create_view,
+    DishCreateView,
     DishDeleteView,
     DishUpdateView,
     CookListView,
@@ -64,7 +64,7 @@ urlpatterns = [
     ),
     path(
         "dish-types/<int:pk>/create-dish/",
-        dish_create_view,
+        DishCreateView.as_view(),
         name="dish-create"
     ),
     path(

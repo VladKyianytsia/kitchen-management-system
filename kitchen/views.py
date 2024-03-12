@@ -126,33 +126,30 @@ def toggle_assign_to_dish(
     )
 
 
-@login_required
-def dish_create_view(
-        request: HttpRequest,
-        pk: int
-) -> HttpResponse:
-    dish_type = get_object_or_404(DishType, pk=pk)
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
+    template_name = 'kitchen/dish_form.html'
+    form_class = DishForm
 
-    if request.method == "POST":
-        form = DishForm(
-            request.POST,
-            initial={"dish_type": dish_type}
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['initial'] = {'dish_type': self.get_dish_type()}
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "kitchen:dish-types-detail",
+            kwargs={"pk": self.get_dish_type().pk}
         )
 
-        if form.is_valid():
-            dish = form.save(commit=False)
-            dish.dish_type = dish_type
-            dish.save()
-            return HttpResponseRedirect(
-                reverse_lazy(
-                    "kitchen:dish-types-detail",
-                    kwargs={"pk": dish_type.id}
-                )
-            )
+    def get_dish_type(self):
+        pk = self.kwargs.get("pk")
+        return get_object_or_404(DishType, pk=pk)
 
-    else:
-        form = DishForm(initial={"dish_type": dish_type})
-    return render(request, "kitchen/dish_form.html", {"form": form})
+    def form_valid(self, form):
+        dish = form.save(commit=False)
+        dish.dish_type = self.get_dish_type()
+        dish.save()
+        return super().form_valid(form)
 
 
 class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
