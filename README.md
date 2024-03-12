@@ -7,6 +7,10 @@ Django project for managing restaurant kitchen
 
 [Kitchen management project deployed to Render]
 
+If you don't want to register you can log in with this credentials:
+* Login: admin
+* Password: Test854697!
+
 ## Installation
 
 ```shell
